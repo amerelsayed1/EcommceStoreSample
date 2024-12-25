@@ -1,7 +1,6 @@
 package io.amermahsoub.ecommerce_store.controllers;
 
 import io.amermahsoub.ecommerce_store.entities.Category;
-import io.amermahsoub.ecommerce_store.entities.Product;
 import io.amermahsoub.ecommerce_store.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
