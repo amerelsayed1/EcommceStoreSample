@@ -1,4 +1,4 @@
-package io.amermahsoub.BorrowReturnBooks;
+package io.amermahsoub.ecommerce_store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
