@@ -15,7 +15,5 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String  description;
-
-    @Column(name = "category_id")
     private Long categoryId;
 }
