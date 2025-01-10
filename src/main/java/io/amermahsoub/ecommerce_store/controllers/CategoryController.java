@@ -1,6 +1,7 @@
 package io.amermahsoub.ecommerce_store.controllers;
 
 import io.amermahsoub.ecommerce_store.dto.request.CategoryRequestDTO;
+import io.amermahsoub.ecommerce_store.dto.response.CategoryResponseDTO;
 import io.amermahsoub.ecommerce_store.entities.Category;
 import io.amermahsoub.ecommerce_store.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    ResponseEntity<CategoryRequestDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequest) {
+    ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(categoryRequest));
     }
 
