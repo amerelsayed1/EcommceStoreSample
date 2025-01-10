@@ -22,7 +22,7 @@ public class ProductController {
                 .body(productService.createProduct(request));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
