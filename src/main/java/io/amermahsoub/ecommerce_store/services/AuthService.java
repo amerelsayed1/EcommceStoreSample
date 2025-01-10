@@ -7,11 +7,11 @@ import io.amermahsoub.ecommerce_store.entities.user.User;
 import io.amermahsoub.ecommerce_store.models.LoginRequest;
 import io.amermahsoub.ecommerce_store.models.RegisterRequest;
 import io.amermahsoub.ecommerce_store.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

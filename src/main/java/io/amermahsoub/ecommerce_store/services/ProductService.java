@@ -5,55 +5,56 @@ import io.amermahsoub.ecommerce_store.entities.Category;
 import io.amermahsoub.ecommerce_store.entities.Product;
 import io.amermahsoub.ecommerce_store.repositories.CategoryRepository;
 import io.amermahsoub.ecommerce_store.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public Product createBook(Product product) {
-        return productRepository.save(product);
+    //Create
+    public void createProduct(ProductResponseDTO productRequest) {
+        Category category = categoryRepository.findById(productRequest.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("Category not found"));
+        Product product = Product.builder()
+                .name(productRequest.getName())
+                .price(productRequest.getPrice())
+                .category(category)
+                .description(productRequest.getDescription()).build();
+        productRepository.save(product);
     }
 
-    public Product getBook(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-    }
-
-    public Product updateBook(Long bookId, Product productDetails) {
-        Product product = productRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
-        product.setName(productDetails.getName());
-        product.setDescription(productDetails.getDescription());
-        product.setCategoryId(productDetails.getCategoryId());
-        return productRepository.save(product);
-    }
-
-    public void deleteBook(Product product) {
-        productRepository.delete(product);
-    }
-
+    //READ
     public List<ProductResponseDTO> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+        return productRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
-        return products.stream().map(product -> {
-            // Fetch category object using categoryId
-            Category category = categoryRepository.findById(product.getCategoryId()).orElse(null);
+    //READ
+    public List<ProductResponseDTO> getProductsByCategory(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
-            // Map to DTO
-            return new ProductResponseDTO(
-                    product.getId(),
-                    product.getName(),
-                    product.getPrice(),
-                    product.getDescription(),
-                    category // Include full Category object
-            );
-        }).toList();
+    //Using this to convert to DTO
+    private ProductResponseDTO convertToDTO(Product product) {
+        return ProductResponseDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .categoryId(product.getCategory().getId())
+                .build();
+
     }
 }

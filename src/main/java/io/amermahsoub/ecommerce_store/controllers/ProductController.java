@@ -1,9 +1,8 @@
 package io.amermahsoub.ecommerce_store.controllers;
 
 import io.amermahsoub.ecommerce_store.dto.ProductResponseDTO;
-import io.amermahsoub.ecommerce_store.entities.Product;
 import io.amermahsoub.ecommerce_store.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/v1/products")
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
-    private ProductService productService;
+
+    private final ProductService productService;
 
     @PostMapping
-    ResponseEntity<Product> createBook(@RequestBody Product product) {
-        Product createdProduct = productService.createBook(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductResponseDTO product) {
+        productService.createProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
-    @GetMapping
-    ResponseEntity<List<ProductResponseDTO>> getAllBooks() {
-        List<ProductResponseDTO> createdProduct = productService.getAllProducts();
-        return ResponseEntity.status(200).body(createdProduct);
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ProductResponseDTO>> getProducts(@PathVariable Long id) {
+        List<ProductResponseDTO> product = productService.getProductsByCategory(id);
+        return ResponseEntity.ok(product);
     }
+
 }
