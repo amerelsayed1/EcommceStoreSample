@@ -1,9 +1,7 @@
-package io.amermahsoub.ecommerce_store.dto;
+package io.amermahsoub.ecommerce_store.dto.response;
 
-import io.amermahsoub.ecommerce_store.entities.Category;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 

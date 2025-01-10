@@ -1,4 +1,4 @@
-package io.amermahsoub.ecommerce_store.models;
+package io.amermahsoub.ecommerce_store.dto.request;
 
 import io.amermahsoub.ecommerce_store.entities.user.Role;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+public class RegisterRequestDTO {
     private String email;
     private String password;
     private String confirmPassword;

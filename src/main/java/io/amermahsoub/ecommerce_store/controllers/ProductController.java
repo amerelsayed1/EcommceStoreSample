@@ -1,6 +1,6 @@
 package io.amermahsoub.ecommerce_store.controllers;
 
-import io.amermahsoub.ecommerce_store.dto.ProductResponseDTO;
+import io.amermahsoub.ecommerce_store.dto.response.ProductResponseDTO;
 import io.amermahsoub.ecommerce_store.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,9 +17,14 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductResponseDTO product) {
-        productService.createProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductResponseDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(productService.createProduct(request));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ProductResponseDTO>> getProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @GetMapping("/{id}")

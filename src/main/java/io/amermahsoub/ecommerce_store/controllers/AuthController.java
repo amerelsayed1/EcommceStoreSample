@@ -1,8 +1,8 @@
 package io.amermahsoub.ecommerce_store.controllers;
 
-import io.amermahsoub.ecommerce_store.dto.AuthenticationResponse;
-import io.amermahsoub.ecommerce_store.models.LoginRequest;
-import io.amermahsoub.ecommerce_store.models.RegisterRequest;
+import io.amermahsoub.ecommerce_store.dto.response.AuthenticationResponse;
+import io.amermahsoub.ecommerce_store.dto.request.LoginRequestDTO;
+import io.amermahsoub.ecommerce_store.dto.request.RegisterRequestDTO;
 import io.amermahsoub.ecommerce_store.services.AuthService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,13 +20,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequestDTO request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody LoginRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
     }
 }

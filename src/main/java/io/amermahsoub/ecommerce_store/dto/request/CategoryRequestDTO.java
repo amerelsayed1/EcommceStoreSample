@@ -1,4 +1,4 @@
-package io.amermahsoub.ecommerce_store.dto;
+package io.amermahsoub.ecommerce_store.dto.request;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;

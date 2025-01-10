@@ -1,6 +1,6 @@
 package io.amermahsoub.ecommerce_store.services;
 
-import io.amermahsoub.ecommerce_store.dto.ProductResponseDTO;
+import io.amermahsoub.ecommerce_store.dto.response.ProductResponseDTO;
 import io.amermahsoub.ecommerce_store.entities.Category;
 import io.amermahsoub.ecommerce_store.entities.Product;
 import io.amermahsoub.ecommerce_store.repositories.CategoryRepository;
@@ -20,14 +20,15 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
 
     //Create
-    public void createProduct(ProductResponseDTO productRequest) {
+    public ProductResponseDTO createProduct(ProductResponseDTO productRequest) {
         Category category = categoryRepository.findById(productRequest.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("Category not found"));
         Product product = Product.builder()
                 .name(productRequest.getName())
                 .price(productRequest.getPrice())
                 .category(category)
                 .description(productRequest.getDescription()).build();
-        productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        return convertToDTO(savedProduct);
     }
 
     //READ
