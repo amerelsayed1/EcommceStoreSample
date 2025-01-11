@@ -4,6 +4,7 @@ import io.amermahsoub.ecommerce_store.dto.response.AuthenticationResponse;
 import io.amermahsoub.ecommerce_store.dto.request.LoginRequestDTO;
 import io.amermahsoub.ecommerce_store.dto.request.RegisterRequestDTO;
 import io.amermahsoub.ecommerce_store.services.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid  RegisterRequestDTO request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
